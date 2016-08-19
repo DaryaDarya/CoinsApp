@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     // версия базы данных
     private static final int DATABASE_VERSION = 1;
     // имя таблицы
-    private static final String DATABASE_TABLE = "coins";
+    public static final String DATABASE_TABLE = "coins";
     // названия столбцов
     public static final String TOWN_COLUMN = "town";
     public static final String YEAR_COLUMN = "year";
