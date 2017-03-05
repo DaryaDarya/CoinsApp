@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -18,9 +19,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
-    private SQLiteDatabase mSqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mDatabaseHelper = new DatabaseHelper(this, "mydatabase.db", null, 1);
-        mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
-
-        /*ContentValues values = new ContentValues();
-        // Задайте значения для каждого столбца
-        values.put(DatabaseHelper.TOWN_COLUMN, "Тихвин");
-        values.put(DatabaseHelper.YEAR_COLUMN, "2010");
-        values.put(DatabaseHelper.NOMINATION_COLUMN, "10");
-        // Вставляем данные в таблицу
-        mSqLiteDatabase.insert("coins", null, values);      */
     }
 
     @Override
@@ -72,56 +65,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnSearchClick(View v){
         TextView infoTextView = (TextView)findViewById(R.id.textView);
-        infoTextView.setText( search_2());
+        EditText searchField = (EditText) findViewById(R.id.searchET);
+        String town = String.valueOf(searchField.getText());
+        if ( town.isEmpty() ) {
+            List<CoinModel> coinList = mDatabaseHelper.getAllCoins();
+            infoTextView.setText(TextUtils.join(", ", coinList.toArray()));
+        }else{
+            CoinModel coin = mDatabaseHelper.getCoinByTown(town);
+            if (coin != null) {
+                infoTextView.setText(coin.toString());
+            }else{
+                infoTextView.setText(town + ": запись не найдена");
+            }
+        }
     }
 
     public void onBtnSaveClick(View v){
         EditText townField = (EditText)findViewById(R.id.townEF);
         EditText yearField = (EditText)findViewById(R.id.yearEF);
         EditText nominationField = (EditText)findViewById(R.id.nominEF);
-        ContentValues values = new ContentValues();
-        // Задайте значения для каждого столбца
-        values.put(DatabaseHelper.TOWN_COLUMN, String.valueOf(townField.getText()));
-        values.put(DatabaseHelper.YEAR_COLUMN, Integer.valueOf(String.valueOf(yearField.getText())));
-        values.put(DatabaseHelper.NOMINATION_COLUMN, String.valueOf(nominationField.getText()));
-        // Вставляем данные в таблицу
-        mSqLiteDatabase.insert("coins", null, values);
-    }
-
-    public String search_1(){
-        Cursor cursor = mSqLiteDatabase.query("coins", new String[] {DatabaseHelper.TOWN_COLUMN,
-                        DatabaseHelper.YEAR_COLUMN, DatabaseHelper.NOMINATION_COLUMN},
-                null, null,
-                null, null, null) ;
-
-        cursor.moveToFirst();
-
-        String town = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TOWN_COLUMN));
-        int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.YEAR_COLUMN));
-        int nomination = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.NOMINATION_COLUMN));
-
-        // не забываем закрывать курсор
-        cursor.close();
-        return  town + ": " + year + " - " + nomination +" руб";
-    }
-
-    public String search_2(){
-        // Метод 2: Сырой SQL-запрос
-        String query = "SELECT " + DatabaseHelper.TOWN_COLUMN + ", "
-                + DatabaseHelper.YEAR_COLUMN  + ", " + DatabaseHelper.NOMINATION_COLUMN
-                + " FROM " + DatabaseHelper.DATABASE_TABLE;
-        Cursor cursor2 = mSqLiteDatabase.rawQuery(query, null);
-        String all = "";
-        while (cursor2.moveToNext()) {
-            int year = cursor2.getInt(cursor2
-                    .getColumnIndex(DatabaseHelper.YEAR_COLUMN));
-            int nomination = cursor2.getInt(cursor2
-                    .getColumnIndex(DatabaseHelper.NOMINATION_COLUMN));
-            String town = cursor2.getString(cursor2
-                    .getColumnIndex(DatabaseHelper.TOWN_COLUMN));
-            all += "Монета города " + town + ": " + year + " - " + nomination +" руб ";
-        }
-        cursor2.close();
-        return all;
+        mDatabaseHelper.addCoin(
+                new CoinModel(String.valueOf(townField.getText()),
+                        Integer.valueOf(String.valueOf(yearField.getText())),
+                        Integer.valueOf(String.valueOf(nominationField.getText()))));
     }
 }

@@ -17,15 +17,14 @@
         android:layout_height="wrap_content"
         android:text="Hello World!"
         android:id="@+id/textView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="147dp" />
+        android:layout_below="@+id/btnSearch" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/searchET"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -38,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/btnSearch"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/searchET"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="onBtnSearchClick" />
@@ -51,8 +50,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="50px"
         android:id="@+id/relativeLayout"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText">
+        android:layout_alignRight="@+id/searchET"
+        android:layout_alignEnd="@+id/searchET">
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,11 +125,12 @@
             android:layout_height="wrap_content"
             android:text="Check &amp; Save"
             android:id="@+id/saveBtn"
+            android:onClick="onBtnSaveClick"
+            android:enabled="true"
             android:layout_below="@+id/textView4"
             android:layout_toRightOf="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
-            android:layout_marginTop="84dp"
-            android:onClick="onBtnSaveClick" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
