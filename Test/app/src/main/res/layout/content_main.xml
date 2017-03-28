@@ -12,124 +12,166 @@
     tools:context="com.example.darya.test.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnSearch" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchET"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/btnSearch"
-        android:layout_below="@+id/searchET"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onBtnSearchClick" />
-
     <RelativeLayout
+        android:id="@+id/searchLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50px"
-        android:id="@+id/relativeLayout"
-        android:layout_alignRight="@+id/searchET"
-        android:layout_alignEnd="@+id/searchET">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-        <TextView
+        <Button
+            android:id="@+id/btnSearch"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Town"
-            android:id="@+id/textView2"
-            android:layout_alignBottom="@+id/townEF"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/nominEF"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/searchET"
+            android:onClick="onBtnSearchClick"
+            android:text="Search" />
+
+        <EditText
+            android:id="@+id/searchET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btnSearch"
+            android:text="Hello World!" />
+
+        <LinearLayout
+            android:id="@+id/addQuestionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="45dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Coin not found. Do you want to add it?"
+                android:textAlignment="center"
+                android:visibility="visible"
+                tools:text="Coin not found. Do you want to add it?" />
+
+            <Button
+                android:id="@+id/BtnAdd"
+                android:layout_width="75dp"
+                android:layout_height="36dp"
+                android:layout_below="@+id/addQuestionLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:onClick="onBtnAddClick"
+                android:text="ADD" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/addLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/searchET"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/searchET"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="50px"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/townEF"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/nominEF"
+            android:text="Town"
             android:textSize="45px" />
 
         <EditText
+            android:id="@+id/townEF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/townEF"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
             android:onClick="onBtnSaveClick" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Year"
-            android:id="@+id/textView3"
-            android:layout_below="@+id/textView2"
+            android:layout_alignBottom="@+id/yearEF"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
             android:layout_toLeftOf="@+id/townEF"
             android:layout_toStartOf="@+id/townEF"
-            android:layout_alignBottom="@+id/yearEF"
+            android:text="Year"
             android:textSize="45px" />
 
         <EditText
+            android:id="@+id/yearEF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/yearEF"
             android:layout_below="@+id/townEF"
+            android:layout_toEndOf="@+id/textView3"
             android:layout_toRightOf="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3" />
+            android:ems="10"
+            android:inputType="number" />
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomination"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/yearEF"
+            android:layout_alignBottom="@+id/nominEF"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/nominEF"
+            android:layout_below="@+id/yearEF"
+            android:text="Nomination"
             android:textSize="45px" />
 
         <EditText
+            android:id="@+id/nominEF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/nominEF"
             android:layout_below="@+id/yearEF"
+            android:layout_toEndOf="@+id/textView4"
             android:layout_toRightOf="@+id/textView4"
-            android:layout_toEndOf="@+id/textView4" />
+            android:ems="10"
+            android:inputType="number" />
 
         <Button
+            android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check &amp; Save"
-            android:id="@+id/saveBtn"
-            android:onClick="onBtnSaveClick"
-            android:enabled="true"
             android:layout_below="@+id/textView4"
-            android:layout_toRightOf="@+id/textView4"
             android:layout_toEndOf="@+id/textView4"
+            android:layout_toRightOf="@+id/textView4"
+            android:enabled="true"
+            android:onClick="onBtnSaveClick"
+            android:text="Check &amp; Save"
             android:visibility="visible" />
 
     </RelativeLayout>

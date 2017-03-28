@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 infoTextView.setText(coin.toString());
             }else{
                 infoTextView.setText(town + ": запись не найдена");
+                LinearLayout questionLayout = (LinearLayout) findViewById(R.id.addQuestionLayout);
+                questionLayout.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -88,5 +92,17 @@ public class MainActivity extends AppCompatActivity {
                 new CoinModel(String.valueOf(townField.getText()),
                         Integer.valueOf(String.valueOf(yearField.getText())),
                         Integer.valueOf(String.valueOf(nominationField.getText()))));
+        this.toggleLayouts();
+    }
+
+    public void onBtnAddClick(View v){
+        this.toggleLayouts();
+    }
+
+    private void toggleLayouts(){
+        RelativeLayout searchLayout = (RelativeLayout) findViewById(R.id.searchLayout);
+        RelativeLayout addLayout = (RelativeLayout) findViewById(R.id.addLayout);
+        searchLayout.setVisibility(searchLayout.getVisibility() == View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
+        addLayout.setVisibility(addLayout.getVisibility() == View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
     }
 }
